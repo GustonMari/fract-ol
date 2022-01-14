@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/13 13:37:12 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/14 10:50:22 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,19 @@ typedef struct	s_data
 	int		bpp;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }				t_data;
 
 typedef struct	s_ptr
 {
 	void	*mlx;
 	void	*win;
+	t_data	*point;
 }				t_ptr;
 
 int	create_color(int t, int r, int g, int b);
-void	print_mandelbrot(t_data image, t_ptr pgm, double	width, double height);
+int	print_mandelbrot(t_data image, t_ptr pgm, double	width, double height);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

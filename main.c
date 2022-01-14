@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/14 10:10:04 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/14 13:22:18 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,8 @@ int	deal_key(int key, void *param)
 {
 	//(void)key;
 	(void)param;
-	if (key == 37)
-		printf("left\n");
-	if (key == 38)
-		printf("up\n");
-	if (key == 39)
-		printf("right\n");
-	if (key == 40)
-		printf("down\n");
+	if (key)
+		printf("jkdhjfdhskfjhdskjhfkjhfkdhskfj\n");
 	return (0);
 }
 
@@ -49,28 +43,49 @@ int	create_color(int t, int r, int g, int b)
 	return (colors);
 }
 
+int	mouse_scroll(int mouse, void *param)
+{
+	static int i = 0;
+	(void)param;
+	if (mouse == 4)
+		printf("%d\n", i++);
+	if (mouse == 5)
+		printf("%d\n", i++);
+	return (0);
+}
+
+int	close(t_ptr *pgm)
+{
+	mlx_destroy_window(pgm->mlx, pgm->win);
+	return (0);
+}
+
 int	main()
 {
-	void	*ptr;
-	void	*win_ptr;
 	t_data	image;
 	t_ptr	pgm;
 
-	ptr = mlx_init();
-	win_ptr = mlx_new_window(ptr, 1000, 1000, "hello");
-	pgm.mlx = ptr;
-	pgm.win = win_ptr;
-	
-	image.img = mlx_new_image(ptr, 1000, 1000);
-	//pq get_data_addr return un char ??
+	pgm.mlx = mlx_init();
+	pgm.win = mlx_new_window(pgm.mlx, 1000, 1000, "hello");
+	image.img = mlx_new_image(pgm.mlx, 1000, 1000);
 	image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_length, &image.endian);
-
-	print_mandelbrot(image, pgm, 1000, 1000);
-	//my_mlx_pixel_put(&image, 250, 250, create_color(0,255,0,0));
-	mlx_put_image_to_window(ptr, win_ptr, image.img, 0, 0);
-	mlx_key_hook(win_ptr, deal_key, &pgm);
 	
-	mlx_loop(ptr);
+
+	
+	
+	//integrer t r g b a la structure image et avant de faire ca utiliser le hook afin de definir les couleurs
+	//mlx_key_hook(pgm.win, deal_key, &pgm);
+	mlx_mouse_hook(pgm.win, mouse_scroll, &pgm);
+	print_mandelbrot(image, pgm, 1000, 1000);
+	
+	
+	
+
+	
+	mlx_put_image_to_window(pgm.mlx, pgm.win, image.img, 0, 0);
+	//integrer la touhe esc pour quitter la fenetre
+	mlx_hook(pgm.win,17, 02, close, &pgm);
+	mlx_loop(pgm.mlx);
 	return (0);
 }
 
@@ -91,6 +106,15 @@ au lieu d'utiliser sqrt(Zr2+Zi2) > 2 pour savoir si le point tend vers linfini
 on peu tout mettre au carre et se debarasser de la racine carre on a donc (Zr2+Zi2) > 4
 
 integrer t r g b a la structure image et avant de faire ca utiliser le hook afin de definir les couleurs
+----------------------------------------------------------------------------------------------------------------------------------
+ZOOM:
+mlx_do_sync(mlx_ptr)
+mlx_mouse_pos
+mlx_mouse_move
+
+
+
+
 
 */
 

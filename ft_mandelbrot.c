@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/14 10:14:35 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/14 13:33:54 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_if_belong(double c_re, double c_cp, int max)
 	return (1);
 }
 
-void	print_mandelbrot(t_data image, t_ptr pgm, double width, double height)
+int	print_mandelbrot(t_data image, t_ptr pgm, double width, double height)
 {
 	(void)pgm;
 	double	min_re = -2;
@@ -76,4 +76,5 @@ void	print_mandelbrot(t_data image, t_ptr pgm, double width, double height)
 		n++;
 		col += 5;
 	}
+	return (0);
 }
