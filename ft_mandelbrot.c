@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/14 13:33:54 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/14 15:09:14 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int	print_mandelbrot(t_data image, t_ptr pgm, double width, double height)
 	double	x;
 	int n;
 	int	col = 0;
-
+	double	zoom = 1;
+	double	move_y = 0;
+	double	move_x = 0;
 	n = 2;
 	// 29 ou 49 ??
 	while (n < 35)
@@ -58,19 +60,15 @@ int	print_mandelbrot(t_data image, t_ptr pgm, double width, double height)
 		y = 0;
 		while (y < width)
 		{
-			c_cp = max_cp - (y *(max_cp - min_cp)/height);
+			c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom)) + move_y;
 			x = 0;
 			while (x < height)
 			{
-				c_re = min_re + (x *(max_re - min_re)/width);
+				c_re = min_re + (x *(max_re - min_re)/(width * zoom)) + move_x;
 				if (check_if_belong(c_re, c_cp, 1 + n))
 					my_mlx_pixel_put(&image, x, y, create_color(0,32 + col, col, 20 + col));
-				
-				//mlx_put_image_to_window(pgm.mlx, pgm.win, image.img, 0, 0);
-				//calculate if appartient ou pas et print si appartient
 				x++;
 			}
-			
 			y++;
 		}
 		n++;

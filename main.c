@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/14 13:22:18 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/14 15:07:44 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ int	create_color(int t, int r, int g, int b)
 int	mouse_scroll(int mouse, void *param)
 {
 	static int i = 0;
-	(void)param;
 	if (mouse == 4)
+	{
+		ft_zoom(param);
 		printf("%d\n", i++);
+	}
 	if (mouse == 5)
 		printf("%d\n", i++);
 	return (0);
@@ -108,6 +110,11 @@ on peu tout mettre au carre et se debarasser de la racine carre on a donc (Zr2+Z
 integrer t r g b a la structure image et avant de faire ca utiliser le hook afin de definir les couleurs
 ----------------------------------------------------------------------------------------------------------------------------------
 ZOOM:
+
+pour convertir la position de la souris sur un autres plan:
+double mouseRe = (double)mouse_x / (WIN_L / (e->Re.max - e->Re.min)) + e->Re.min;
+double mouseIm = (double)mouse_y / (WIN_H / (e->Im.max - e->Im.min)) + e->Im.min;
+
 mlx_do_sync(mlx_ptr)
 mlx_mouse_pos
 mlx_mouse_move
