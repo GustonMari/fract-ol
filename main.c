@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/14 15:07:44 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/14 17:43:04 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ int	create_color(int t, int r, int g, int b)
 	return (colors);
 }
 
-int	mouse_scroll(int mouse, void *param)
+int	mouse_scroll(int mouse, t_ptr pgm)
 {
-	static int i = 0;
+	//static int i = 0;
 	if (mouse == 4)
 	{
-		ft_zoom(param);
-		printf("%d\n", i++);
+		//ft_zoom(param);
+		printf("x = %d, y = %d\n", pgm.mouse.x, pgm.mouse.y);
 	}
 	if (mouse == 5)
-		printf("%d\n", i++);
+	{
+		//ft_zoom(param);
+	}
 	return (0);
 }
 
@@ -61,6 +63,10 @@ int	close(t_ptr *pgm)
 	mlx_destroy_window(pgm->mlx, pgm->win);
 	return (0);
 }
+
+
+// PREMIER PB A GERER EST PQ LA FONCTION ZOOM DEFONCAIS MON MOUSE_GET_POS ????? surement mlx_loop_hook
+
 
 int	main()
 {
@@ -77,7 +83,13 @@ int	main()
 	
 	//integrer t r g b a la structure image et avant de faire ca utiliser le hook afin de definir les couleurs
 	//mlx_key_hook(pgm.win, deal_key, &pgm);
-	mlx_mouse_hook(pgm.win, mouse_scroll, &pgm);
+	
+	//FINIR EN DESSOUS
+	//mlx_mouse_hook(pgm.win, mouse_scroll, &pgm);
+	//while (mlx_loop_hook())
+	//mlx_mouse_get_pos(pgm.mlx, pgm.win, &pgm.mouse.x, &pgm.mouse.y);
+	//printf("x = %d, y = %d\n", pgm.mouse.x, pgm.mouse.y);
+	
 	print_mandelbrot(image, pgm, 1000, 1000);
 	
 	
@@ -114,7 +126,24 @@ ZOOM:
 pour convertir la position de la souris sur un autres plan:
 double mouseRe = (double)mouse_x / (WIN_L / (e->Re.max - e->Re.min)) + e->Re.min;
 double mouseIm = (double)mouse_y / (WIN_H / (e->Im.max - e->Im.min)) + e->Im.min;
+-------------------------------------------------------------------------------
+OFFSET = 0.0625
+// Ma fractale était affichée dans une section de 800x800 pixels
+// Prenant pour origine le pixel [399,399] comme origine du repère orthogonal
+// La formule suivante est pour le cas où la coordonnée de ton écran sur
+// Laquelle tu zoomes correspondrait à un complexe avec une partie réelle
+// Négative et une partie complexe négative (quart du repère à droite de
+// Des absices et à gauche de celui des ordonnées
 
+// y et x sont les coordonnées de ta souris
+// le zoom est arbitraire et la division par 64 ainsi que l'OFFSET permettent
+// de mitiger l'effet exponentiel du zoom sans que t'ai besoin de scroller
+// des plombes pour progresser
+
+offset_y = (OFFSET / zoom) * ((400 - y) / 64)
+offset_x = (OFFSET / zoom) * ((400 - x) / 64)
+zoom *= 1.1
+----------------------------------------------------------------------
 mlx_do_sync(mlx_ptr)
 mlx_mouse_pos
 mlx_mouse_move
