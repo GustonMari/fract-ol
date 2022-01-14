@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/13 16:19:07 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/14 10:10:04 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ int	main()
 	t_ptr	pgm;
 
 	ptr = mlx_init();
-	win_ptr = mlx_new_window(ptr, 500, 500, "hello");
+	win_ptr = mlx_new_window(ptr, 1000, 1000, "hello");
 	pgm.mlx = ptr;
 	pgm.win = win_ptr;
 	
-	image.img = mlx_new_image(ptr, 500, 500);
+	image.img = mlx_new_image(ptr, 1000, 1000);
 	//pq get_data_addr return un char ??
 	image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_length, &image.endian);
 
-	print_mandelbrot(image, pgm, 500, 500);
+	print_mandelbrot(image, pgm, 1000, 1000);
 	//my_mlx_pixel_put(&image, 250, 250, create_color(0,255,0,0));
 	mlx_put_image_to_window(ptr, win_ptr, image.img, 0, 0);
 	mlx_key_hook(win_ptr, deal_key, &pgm);
@@ -89,6 +89,8 @@ c_im = MaxIm - y*(MaxIm-MinIm)/(ImageHeight-1);
 
 au lieu d'utiliser sqrt(Zr2+Zi2) > 2 pour savoir si le point tend vers linfini 
 on peu tout mettre au carre et se debarasser de la racine carre on a donc (Zr2+Zi2) > 4
+
+integrer t r g b a la structure image et avant de faire ca utiliser le hook afin de definir les couleurs
 
 */
 

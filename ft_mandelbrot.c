@@ -6,13 +6,13 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/13 16:18:41 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/14 10:14:35 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
 
-int	check_if_belong(double c_re, double c_cp)
+int	check_if_belong(double c_re, double c_cp, int max)
 {
 	double	z_re;
 	double	z_cp;
@@ -22,7 +22,7 @@ int	check_if_belong(double c_re, double c_cp)
 	count = 0;
 	z_re = c_re;
 	z_cp = c_cp;
-	while (count < 30)
+	while (count < max)
 	{
 		temp = z_re * z_re - z_cp * z_cp + c_re;
 		z_cp = 2 * z_re * z_cp + c_cp;
@@ -46,23 +46,34 @@ void	print_mandelbrot(t_data image, t_ptr pgm, double width, double height)
 	double	max_cp = 1.2;
 	double	c_cp;
 	double	c_re;
-	double	y = 0;
+	double	y;
 	double	x;
-	
-	while (y < width)
+	int n;
+	int	col = 0;
+
+	n = 2;
+	// 29 ou 49 ??
+	while (n < 35)
 	{
-		c_cp = max_cp - (y *(max_cp - min_cp)/height);
-		x = 0;
-		while (x < height)
+		y = 0;
+		while (y < width)
 		{
-			c_re = min_re + (x *(max_re - min_re)/width);
-			if (check_if_belong(c_re, c_cp))
-				my_mlx_pixel_put(&image, x, y, create_color(0,255,0,0));
-			//mlx_put_image_to_window(pgm.mlx, pgm.win, image.img, 0, 0);
-			//calculate if appartient ou pas et print si appartient
-			x++;
+			c_cp = max_cp - (y *(max_cp - min_cp)/height);
+			x = 0;
+			while (x < height)
+			{
+				c_re = min_re + (x *(max_re - min_re)/width);
+				if (check_if_belong(c_re, c_cp, 1 + n))
+					my_mlx_pixel_put(&image, x, y, create_color(0,32 + col, col, 20 + col));
+				
+				//mlx_put_image_to_window(pgm.mlx, pgm.win, image.img, 0, 0);
+				//calculate if appartient ou pas et print si appartient
+				x++;
+			}
+			
+			y++;
 		}
-		
-		y++;
+		n++;
+		col += 5;
 	}
 }
