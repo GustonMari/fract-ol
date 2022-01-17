@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/17 13:39:46 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/17 15:23:24 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 //# include "minilibx/mlx.h"
 # include "minilibx_linux/mlx.h"
 # include <stdio.h>
+# include <stdlib.h>
 
 
 typedef struct	s_mouse
@@ -42,7 +43,7 @@ typedef struct	s_ptr
 	void	*mlx;
 	void	*win;
 	
-	t_mouse	mouse;
+	t_mouse	*mouse;
 }				t_ptr;
 
 

@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/17 14:11:47 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/17 16:25:55 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,16 @@ int	create_color(int t, int r, int g, int b)
 	return (colors);
 }
 
-int	mouse_scroll(int mouse, t_ptr pgm)
+int	mouse_scroll(int mouse, t_ptr *pgm)
 {
 	//static int i = 0;
+	(void)pgm;
 	mouse = 4;
 	if (mouse == 4)
 	{
-		printf("pgm.mlx= %p, win= %p \n", pgm.mlx, pgm.win);
-		mlx_mouse_get_pos(pgm.mlx, pgm.win, &pgm.mouse.x, &pgm.mouse.y);
-		printf("x = %d, y = %d\n", pgm.mouse.x, pgm.mouse.y);
+		//printf("pgm.mlx= %p, win= %p \n", pgm.mlx, pgm.win);
+		//mlx_mouse_get_pos(pgm.mlx, pgm.win, &pgm.mouse.x, &pgm.mouse.y);
+		//printf("x = %d, y = %d\n", pgm.mouse.x, pgm.mouse.y);
 		//ft_zoom(param);
 	}
 	if (mouse == 5)
@@ -70,26 +71,34 @@ int	close(t_ptr *pgm)
 
 // PREMIER PB A GERER EST PQ LA FONCTION ZOOM DEFONCAIS MON MOUSE_GET_POS ????? surement mlx_loop_hook
 
+void	pgm_image_init(t_ptr *pgm, t_data *image)
+{
+	pgm->mlx = mlx_init();
+	pgm->win = mlx_new_window(pgm->mlx, 1000, 1000, "hello");
+	image->img = mlx_new_image(pgm->mlx, 1000, 1000);
+	image->addr = mlx_get_data_addr(image->img, &image->bpp, &image->line_length, &image->endian);
+}
 
 int	main()
 {
 	t_data	image;
 	t_ptr	pgm;
-
-	pgm.mlx = mlx_init();
-	pgm.win = mlx_new_window(pgm.mlx, 1000, 1000, "hello");
-	image.img = mlx_new_image(pgm.mlx, 1000, 1000);
-	image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_length, &image.endian);
+	
+	pgm_image_init(&pgm, &image);
+	//pgm.mlx = mlx_init();
+	//pgm.win = mlx_new_window(pgm.mlx, 1000, 1000, "hello");
+	//image.img = mlx_new_image(pgm.mlx, 1000, 1000);
+	//image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_length, &image.endian);
 	
 
 	
-	
+
 	//integrer t r g b a la structure image et avant de faire ca utiliser le hook afin de definir les couleurs
 	//mlx_key_hook(pgm.win, deal_key, &pgm);
 	
 	//FINIR EN DESSOUS
-	printf("pgm.mlx = %p\n", pgm.mlx);
-	printf("pgm.win = %p\n", pgm.win);
+	//printf("pgm.mlx = %p\n", pgm.mlx);
+	//printf("pgm.win = %p\n", pgm.win);
 	//mlx_mouse_get_pos(pgm.mlx, pgm.win, &pgm.mouse.x, &pgm.mouse.y);
 	//printf("x = %d, y = %d\n", pgm.mouse.x, pgm.mouse.y);
 	//while (mlx_loop_hook())
@@ -97,7 +106,7 @@ int	main()
 	print_mandelbrot(image, pgm, 1000, 1000);
 	
 	mlx_put_image_to_window(pgm.mlx, pgm.win, image.img, 0, 0);
-	mlx_mouse_hook(pgm.win, mouse_scroll, &pgm);
+	//mlx_mouse_hook(pgm.win, &mouse_scroll, &pgm);
 	//integrer la touhe esc pour quitter la fenetre
 	mlx_hook(pgm.win, 17, 02, close, &pgm);
 	mlx_loop(pgm.mlx);
