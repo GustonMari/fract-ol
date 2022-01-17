@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/14 17:43:04 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/17 14:11:47 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ int	create_color(int t, int r, int g, int b)
 int	mouse_scroll(int mouse, t_ptr pgm)
 {
 	//static int i = 0;
+	mouse = 4;
 	if (mouse == 4)
 	{
-		//ft_zoom(param);
+		printf("pgm.mlx= %p, win= %p \n", pgm.mlx, pgm.win);
+		mlx_mouse_get_pos(pgm.mlx, pgm.win, &pgm.mouse.x, &pgm.mouse.y);
 		printf("x = %d, y = %d\n", pgm.mouse.x, pgm.mouse.y);
+		//ft_zoom(param);
 	}
 	if (mouse == 5)
 	{
@@ -85,20 +88,18 @@ int	main()
 	//mlx_key_hook(pgm.win, deal_key, &pgm);
 	
 	//FINIR EN DESSOUS
-	//mlx_mouse_hook(pgm.win, mouse_scroll, &pgm);
-	//while (mlx_loop_hook())
+	printf("pgm.mlx = %p\n", pgm.mlx);
+	printf("pgm.win = %p\n", pgm.win);
 	//mlx_mouse_get_pos(pgm.mlx, pgm.win, &pgm.mouse.x, &pgm.mouse.y);
 	//printf("x = %d, y = %d\n", pgm.mouse.x, pgm.mouse.y);
+	//while (mlx_loop_hook())
 	
 	print_mandelbrot(image, pgm, 1000, 1000);
 	
-	
-	
-
-	
 	mlx_put_image_to_window(pgm.mlx, pgm.win, image.img, 0, 0);
+	mlx_mouse_hook(pgm.win, mouse_scroll, &pgm);
 	//integrer la touhe esc pour quitter la fenetre
-	mlx_hook(pgm.win,17, 02, close, &pgm);
+	mlx_hook(pgm.win, 17, 02, close, &pgm);
 	mlx_loop(pgm.mlx);
 	return (0);
 }
