@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/17 16:25:55 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/17 17:40:16 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ int	create_color(int t, int r, int g, int b)
 	return (colors);
 }
 
-int	mouse_scroll(int mouse, t_ptr *pgm)
+int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm)
 {
 	//static int i = 0;
-	(void)pgm;
-	mouse = 4;
+	//(void)pgm;
+	(void)x;
+	(void)y;
 	if (mouse == 4)
 	{
-		//printf("pgm.mlx= %p, win= %p \n", pgm.mlx, pgm.win);
-		//mlx_mouse_get_pos(pgm.mlx, pgm.win, &pgm.mouse.x, &pgm.mouse.y);
-		//printf("x = %d, y = %d\n", pgm.mouse.x, pgm.mouse.y);
+		//printf("x = %d, y = %d\n", pgm->mouse->x, pgm->mouse->y);
+		mlx_mouse_get_pos(pgm->mlx, pgm->win, &pgm->mouse->x, &pgm->mouse->y);
+		//printf("x = %d, y = %d\n", pgm->mouse->x, pgm->mouse->y);
+		pgm->mouse->zoom += 0.2;
 		//ft_zoom(param);
 	}
 	if (mouse == 5)
@@ -77,7 +79,12 @@ void	pgm_image_init(t_ptr *pgm, t_data *image)
 	pgm->win = mlx_new_window(pgm->mlx, 1000, 1000, "hello");
 	image->img = mlx_new_image(pgm->mlx, 1000, 1000);
 	image->addr = mlx_get_data_addr(image->img, &image->bpp, &image->line_length, &image->endian);
+	pgm->mouse->x = 0;
+	pgm->mouse->y = 0;
+	pgm->mouse->zoom = 1.0;
 }
+
+//void	ft_infinit_pos(t_ptr *pgm)
 
 int	main()
 {
@@ -103,10 +110,11 @@ int	main()
 	//printf("x = %d, y = %d\n", pgm.mouse.x, pgm.mouse.y);
 	//while (mlx_loop_hook())
 	
-	print_mandelbrot(image, pgm, 1000, 1000);
+	//ft_infinit_pos(&pgm);
+	mlx_mouse_hook(pgm.win, &mouse_scroll, &pgm);
+	print_mandelbrot(image, &pgm, 1000, 1000);
 	
 	mlx_put_image_to_window(pgm.mlx, pgm.win, image.img, 0, 0);
-	//mlx_mouse_hook(pgm.win, &mouse_scroll, &pgm);
 	//integrer la touhe esc pour quitter la fenetre
 	mlx_hook(pgm.win, 17, 02, close, &pgm);
 	mlx_loop(pgm.mlx);

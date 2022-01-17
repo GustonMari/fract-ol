@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/14 15:09:14 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/17 17:38:46 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	check_if_belong(double c_re, double c_cp, int max)
 	return (1);
 }
 
-int	print_mandelbrot(t_data image, t_ptr pgm, double width, double height)
+int	print_mandelbrot(t_data image, t_ptr *pgm, double width, double height)
 {
-	(void)pgm;
+	//(void)pgm;
 	double	min_re = -2;
 	double	max_re = 1;
 	double	min_cp = -1.2;
@@ -50,9 +50,11 @@ int	print_mandelbrot(t_data image, t_ptr pgm, double width, double height)
 	double	x;
 	int n;
 	int	col = 0;
-	double	zoom = 1;
-	double	move_y = 0;
-	double	move_x = 0;
+	double	zoom = pgm->mouse->zoom;
+	double	move_y;
+	double	move_x;
+	move_y = pgm->mouse->y;
+	move_x = pgm->mouse->x;
 	n = 2;
 	// 29 ou 49 ??
 	while (n < 35)
