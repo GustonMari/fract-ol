@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/18 15:36:13 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:27:57 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	print_mandelbrot(t_ptr *pgm)
 	double	zoom = pgm->mouse.zoom;
 	//double	zoom = 1.5;
 	double	move_y = 0;
-	double	move_x = -1;
+	double	move_x = 0;
 //
-	//move_y = pgm->mouse.y;
-	//move_x = pgm->mouse.x;
+	move_y = pgm->mouse.move_y;
+	move_x = pgm->mouse.move_x;
 		//printf("outside x = %d, y = %d, zoom = %f\n\n", pgm->mouse.x, pgm->mouse.y, pgm->mouse.zoom);
 		//printf("outside x = %f, y = %f, zoom = %f\n\n", pgm->mouse.move_x, pgm->mouse.move_y, pgm->mouse.zoom);
 		printf("outside x = %f, y = %f, zoom = %f\n\n", move_x, move_y, pgm->mouse.zoom);

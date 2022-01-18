@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/18 15:33:21 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/18 16:29:35 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,9 @@ int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm)
 	if (mouse == 4)
 	{
 		mlx_mouse_get_pos(pgm->mlx, pgm->win, &pgm->mouse.x, &pgm->mouse.y);
-		//temp = (0.0625 / pgm->mouse.zoom) * ((500 - pgm->mouse.y) / 64);
-		//temp = (0.0625/ pgm->mouse.zoom) * ((500 - pgm->mouse.y) / 64);
-		//pgm->mouse.move_y = (2.4 /1000.0) * (pgm->mouse.y);
-		//pgm->mouse.y = temp;
-		////temp = (0.0625 / pgm->mouse.zoom) * ((500 - pgm->mouse.x) / 64);
-		//temp = (0.0625 / pgm->mouse.zoom) * ((500 - pgm->mouse.x) / 64);
-		//pgm->mouse.move_x = 3.0 / 1000.0 * (pgm->mouse.x);
-		//pgm->mouse.x = temp;
+		//	pgm->mouse.move_y = 1.2 - (y *(1.2 - 1.2)/(1000 * pgm->mouse.zoom));
+		pgm->mouse.move_y = (0.625 / pgm->mouse.zoom) * ((500 - y) / 64);
+		pgm->mouse.move_x = (0.0625 / pgm->mouse.zoom) * ((666 - x) / 64);
 		pgm->mouse.zoom += 0.1;
 	}
 	if (mouse == 5)
