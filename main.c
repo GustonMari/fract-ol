@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/18 11:38:05 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/18 13:35:58 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,25 @@ int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm)
 	(void)pgm;
 	(void)x;
 	(void)y;
+	//int	temp;
 	if (mouse == 4)
 	{
-		//printf("x = %d, y = %d, zoom = %f\n", pgm->mouse.x, pgm->mouse.y, pgm->mouse.zoom);
 		mlx_mouse_get_pos(pgm->mlx, pgm->win, &pgm->mouse.x, &pgm->mouse.y);
-		//printf("x = %d, y = %d, zoom = %f\n", pgm->mouse.x, pgm->mouse.y, pgm->mouse.zoom);
+		//temp = (0.0625 / pgm->mouse.zoom) * ((500 - pgm->mouse.y) / 64);
+		temp = (pgm->mouse.zoom) * ((500 - pgm->mouse.y) / 2);
+		pgm->mouse.y = temp;
+		//temp = (0.0625 / pgm->mouse.zoom) * ((500 - pgm->mouse.x) / 64);
+		temp = (pgm->mouse.zoom) * ((500 - pgm->mouse.x) / 2);
+		pgm->mouse.x = temp;
 		pgm->mouse.zoom += 0.2;
-		//print_mandelbrot(pgm->mouse->img, pgm, 1000, 1000);
-		//ft_zoom(param);
 	}
 	if (mouse == 5)
-	{
-		//ft_zoom(param);
+	{	
+		if (pgm->mouse.zoom > 1)
+		{
+			mlx_mouse_get_pos(pgm->mlx, pgm->win, &pgm->mouse.x, &pgm->mouse.y);
+			pgm->mouse.zoom -= 0.2;
+		}
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/18 13:01:46 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/18 13:22:24 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ int	print_mandelbrot(t_ptr *pgm)
 	int	col = 0;
 	double	zoom = pgm->mouse.zoom;
 	//double	zoom = 1.5;
-	//double	move_y;
-	//double	move_x;
-//
-	//move_y = pgm->mouse.y;
-	//move_x = pgm->mouse.x;
+	double	move_y;
+	double	move_x;
+
+	move_y = pgm->mouse.y;
+	move_x = pgm->mouse.x;
 		printf("outside x = %d, y = %d, zoom = %f\n\n", pgm->mouse.x, pgm->mouse.y, pgm->mouse.zoom);
 	n = 2;
 	// 29 ou 49 ??
@@ -88,13 +88,13 @@ int	print_mandelbrot(t_ptr *pgm)
 		while (y < width)
 		{
 	//	printf("inside x = %d, y = %d, zoom = %f\n", pgm->mouse.x, pgm->mouse.y, pgm->mouse.zoom);
-			//c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom)) + move_y;
-			c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom));
+			c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom)) + move_y;
+			//c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom));
 			x = 0;
 			while (x < height)
 			{
-				c_re = min_re + (x *(max_re - min_re)/(width * zoom));
-				//c_re = min_re + (x *(max_re - min_re)/(width * zoom)) + move_x;
+				//c_re = min_re + (x *(max_re - min_re)/(width * zoom));
+				c_re = min_re + (x *(max_re - min_re)/(width * zoom)) + move_x;
 				if (check_if_belong(c_re, c_cp, 1 + n))
 					my_mlx_pixel_put(&pgm->image, x, y, create_color(0,32 + col, col, 20 + col));
 					//my_mlx_pixel_put(image, x, y, create_color(0,32 + col, col, 20 + col));
