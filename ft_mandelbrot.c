@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/18 10:55:59 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/18 13:01:46 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,29 @@ int	check_if_belong(double c_re, double c_cp, int max)
 	return (1);
 }
 
-int	print_mandelbrot(t_data *image, t_ptr *pgm)
+int	ft_black(t_ptr *pgm)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < 1000)
+	{
+		x = 0;
+		while (x < 1000)
+		{
+			my_mlx_pixel_put(&pgm->image, x, y, create_color(0, 0, 0, 0));
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int	print_mandelbrot(t_ptr *pgm)
 {
 	//(void)pgm;
+	ft_black(pgm);
 	double	width = 1000;
 	double height = 1000;
 	double	min_re = -2;
@@ -52,11 +72,14 @@ int	print_mandelbrot(t_data *image, t_ptr *pgm)
 	double	x;
 	int n;
 	int	col = 0;
-	double	zoom = pgm->mouse->zoom;
-	double	move_y;
-	double	move_x;
-	move_y = pgm->mouse->y;
-	move_x = pgm->mouse->x;
+	double	zoom = pgm->mouse.zoom;
+	//double	zoom = 1.5;
+	//double	move_y;
+	//double	move_x;
+//
+	//move_y = pgm->mouse.y;
+	//move_x = pgm->mouse.x;
+		printf("outside x = %d, y = %d, zoom = %f\n\n", pgm->mouse.x, pgm->mouse.y, pgm->mouse.zoom);
 	n = 2;
 	// 29 ou 49 ??
 	while (n < 35)
@@ -64,13 +87,16 @@ int	print_mandelbrot(t_data *image, t_ptr *pgm)
 		y = 0;
 		while (y < width)
 		{
-			c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom)) + move_y;
+	//	printf("inside x = %d, y = %d, zoom = %f\n", pgm->mouse.x, pgm->mouse.y, pgm->mouse.zoom);
+			//c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom)) + move_y;
+			c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom));
 			x = 0;
 			while (x < height)
 			{
-				c_re = min_re + (x *(max_re - min_re)/(width * zoom)) + move_x;
+				c_re = min_re + (x *(max_re - min_re)/(width * zoom));
+				//c_re = min_re + (x *(max_re - min_re)/(width * zoom)) + move_x;
 				if (check_if_belong(c_re, c_cp, 1 + n))
-					my_mlx_pixel_put(image, x, y, create_color(0,32 + col, col, 20 + col));
+					my_mlx_pixel_put(&pgm->image, x, y, create_color(0,32 + col, col, 20 + col));
 					//my_mlx_pixel_put(image, x, y, create_color(0,32 + col, col, 20 + col));
 				x++;
 			}
@@ -79,95 +105,6 @@ int	print_mandelbrot(t_data *image, t_ptr *pgm)
 		n++;
 		col += 5;
 	}
+	mlx_put_image_to_window(pgm->mlx, pgm->win, pgm->image.img, 0, 0);
 	return (0);
 }
-
-/*
-int	print_mandelbrot(t_data *image, t_ptr *pgm, double width, double height)
-{
-	//(void)pgm;
-	double	min_re = -2;
-	double	max_re = 1;
-	double	min_cp = -1.2;
-	//il y a une version alternative pour ne pas avoir limage deformer de max_cp
-	double	max_cp = 1.2;
-	double	c_cp;
-	double	c_re;
-	double	y;
-	double	x;
-	int n;
-	int	col = 0;
-	double	zoom = pgm->mouse->zoom;
-	double	move_y;
-	double	move_x;
-	move_y = pgm->mouse->y;
-	move_x = pgm->mouse->x;
-	n = 2;
-	// 29 ou 49 ??
-	while (n < 35)
-	{
-		y = 0;
-		while (y < width)
-		{
-			c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom)) + move_y;
-			x = 0;
-			while (x < height)
-			{
-				c_re = min_re + (x *(max_re - min_re)/(width * zoom)) + move_x;
-				if (check_if_belong(c_re, c_cp, 1 + n))
-					my_mlx_pixel_put(image, x, y, create_color(0,32 + col, col, 20 + col));
-				x++;
-			}
-			y++;
-		}
-		n++;
-		col += 5;
-	}
-	return (0);
-}
-*/
-
-/*
-int	print_mandelbrot(t_data image, t_ptr *pgm, double width, double height)
-{
-	//(void)pgm;
-	double	min_re = -2;
-	double	max_re = 1;
-	double	min_cp = -1.2;
-	//il y a une version alternative pour ne pas avoir limage deformer de max_cp
-	double	max_cp = 1.2;
-	double	c_cp;
-	double	c_re;
-	double	y;
-	double	x;
-	int n;
-	int	col = 0;
-	double	zoom = pgm->mouse->zoom;
-	double	move_y;
-	double	move_x;
-	move_y = pgm->mouse->y;
-	move_x = pgm->mouse->x;
-	n = 2;
-	// 29 ou 49 ??
-	while (n < 35)
-	{
-		y = 0;
-		while (y < width)
-		{
-			c_cp = max_cp - (y *(max_cp - min_cp)/(height * zoom)) + move_y;
-			x = 0;
-			while (x < height)
-			{
-				c_re = min_re + (x *(max_re - min_re)/(width * zoom)) + move_x;
-				if (check_if_belong(c_re, c_cp, 1 + n))
-					my_mlx_pixel_put(&image, x, y, create_color(0,32 + col, col, 20 + col));
-				x++;
-			}
-			y++;
-		}
-		n++;
-		col += 5;
-	}
-	return (0);
-}
-*/
