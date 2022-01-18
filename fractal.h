@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/18 11:29:24 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/18 15:00:31 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct	s_mouse
 	int	x;
 	int	y;
 	double	zoom;
+	double	move_x;
+	double	move_y;
 	void	*img;
 	char	*addr;
 }				t_mouse;

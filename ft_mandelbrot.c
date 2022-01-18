@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/18 13:22:24 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/18 15:36:13 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	print_mandelbrot(t_ptr *pgm)
 	double	min_cp = -1.2;
 	//il y a une version alternative pour ne pas avoir limage deformer de max_cp
 	double	max_cp = 1.2;
+	//double	max_cp = min_cp + (max_re - min_re) * (1000 / 1000);
 	double	c_cp;
 	double	c_re;
 	double	y;
@@ -74,12 +75,14 @@ int	print_mandelbrot(t_ptr *pgm)
 	int	col = 0;
 	double	zoom = pgm->mouse.zoom;
 	//double	zoom = 1.5;
-	double	move_y;
-	double	move_x;
-
-	move_y = pgm->mouse.y;
-	move_x = pgm->mouse.x;
-		printf("outside x = %d, y = %d, zoom = %f\n\n", pgm->mouse.x, pgm->mouse.y, pgm->mouse.zoom);
+	double	move_y = 0;
+	double	move_x = -1;
+//
+	//move_y = pgm->mouse.y;
+	//move_x = pgm->mouse.x;
+		//printf("outside x = %d, y = %d, zoom = %f\n\n", pgm->mouse.x, pgm->mouse.y, pgm->mouse.zoom);
+		//printf("outside x = %f, y = %f, zoom = %f\n\n", pgm->mouse.move_x, pgm->mouse.move_y, pgm->mouse.zoom);
+		printf("outside x = %f, y = %f, zoom = %f\n\n", move_x, move_y, pgm->mouse.zoom);
 	n = 2;
 	// 29 ou 49 ??
 	while (n < 35)
