@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/18 16:29:35 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/19 10:47:11 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,46 @@ int	create_color(int t, int r, int g, int b)
 int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm)
 {
 	//static int i = 0;
-	(void)pgm;
-	(void)x;
-	(void)y;
+	//(void)pgm;
+	//(void)x;
+	//(void)y;
 	//double	temp;
 	if (mouse == 4)
 	{
-		mlx_mouse_get_pos(pgm->mlx, pgm->win, &pgm->mouse.x, &pgm->mouse.y);
-		//	pgm->mouse.move_y = 1.2 - (y *(1.2 - 1.2)/(1000 * pgm->mouse.zoom));
-		pgm->mouse.move_y = (0.625 / pgm->mouse.zoom) * ((500 - y) / 64);
-		pgm->mouse.move_x = (0.0625 / pgm->mouse.zoom) * ((666 - x) / 64);
+		printf("mouse x=%d y=%d\n", x, y);
+		//pgm->mouse.x = (double)x;
+		//pgm->mouse.y = (double)y;
+		//mlx_mouse_get_pos(pgm->mlx, pgm->win, &pgm->mouse.x, &pgm->mouse.y);
+
+		
 		pgm->mouse.zoom += 0.1;
+		//pgm->mouse.move_y = 1.2 - (y *(1.2 - -1.2)/(1000.0 * pgm->mouse.zoom)); 
+		//pgm->mouse.move_x = -2.0 + (y *(1.0 - -2)/(1000.0 * pgm->mouse.zoom));
+		
+		//pgm->mouse.move_x = (double)x / (1000.0 / (1.0 - (-2.0)) * pgm->mouse.zoom) + (-2.0);
+		//pgm->mouse.move_y= (double)y / (1000.0 / (1.2 - (-1.2)) * pgm->mouse.zoom) + (-1.2);
+		
+		pgm->mouse.move_y = (0.0625 / pgm->mouse.zoom) * ((500 - y) / 64);
+		pgm->mouse.move_x = (0.0625 / pgm->mouse.zoom) * ((666 - x) / 64);
+		//pgm->mouse.move_x = (x / pgm->mouse.zoom + pgm->mouse.move_x) - (x / (pgm->mouse.zoom * 1.1));
+		//pgm->mouse.move_y = (y / pgm->mouse.zoom + pgm->mouse.move_y) - (y / (pgm->mouse.zoom * 1.1));
+		//pgm->mouse.zoom *= 1.1;
+		printf("outside x = %f, y = %f, zoom = %f\n\n", pgm->mouse.move_x, pgm->mouse.move_y, pgm->mouse.zoom);
+		//double	tmp;
+		//tmp = pgm->mouse.zoom;
+		//pgm->mouse.zoom *= 1.1;
+		//pgm->mouse.zoom += 0.1;
+		//pgm->mouse.move_x += (((double)x / tmp) - (x / pgm->mouse.zoom));
+		//pgm->mouse.move_y += (((double)y / tmp) - (y / pgm->mouse.zoom));
+		//e->itmax *= 1.005;
+		//data->it_max++;
 	}
 	if (mouse == 5)
 	{	
 		if (pgm->mouse.zoom > 1)
 		{
 			mlx_mouse_get_pos(pgm->mlx, pgm->win, &pgm->mouse.x, &pgm->mouse.y);
-			pgm->mouse.zoom -= 0.2;
+			pgm->mouse.zoom -= 0.01;
 		}
 	}
 	return (0);
