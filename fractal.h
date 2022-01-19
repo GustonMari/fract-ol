@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/18 15:00:31 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/19 11:43:13 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# define HT 1000
+# define WT 1000
 
 typedef struct	s_save
 {
@@ -33,6 +35,10 @@ typedef struct	s_mouse
 	double	zoom;
 	double	move_x;
 	double	move_y;
+	double	min_re;
+	double	max_re;
+	double	min_cp;
+	double	max_cp;
 	void	*img;
 	char	*addr;
 }				t_mouse;
@@ -72,7 +78,7 @@ typedef struct	s_ptr
 }				t_ptr;
 
 
-void	ft_zoom(t_ptr	pgm);
+void	ft_zoom_in(t_ptr	*pgm, double zoom_f);
 int	create_color(int t, int r, int g, int b);
 //int	print_mandelbrot(t_data image, t_ptr *pgm, double	width, double height);
 //int	print_mandelbrot(t_data *image, t_ptr *pgm, double	width, double height);
