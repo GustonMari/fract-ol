@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/20 10:12:22 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/20 12:16:49 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ typedef struct	s_ptr
 int	ft_black(t_ptr *pgm);
 void	ft_zoom_in(t_ptr	*pgm, double zoom_f);
 int	create_color(int t, int r, int g, int b);
+int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm);
 //int	print_mandelbrot(t_data image, t_ptr *pgm, double	width, double height);
 //int	print_mandelbrot(t_data *image, t_ptr *pgm, double	width, double height);
+int	palette(int i);
 int	print_mandelbrot(t_ptr *pgm);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
