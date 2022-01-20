@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/19 13:45:19 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/20 10:15:18 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,14 @@ int	print_mandelbrot(t_ptr *pgm)
 {
 	ft_black(pgm);
 	double	min_re = pgm->mouse.min_re;
-	double	max_re = pgm->mouse.max_cp;
+	//double	max_re = pgm->mouse.max_cp;
 	double	min_cp = pgm->mouse.min_cp;
 	double	max_cp = pgm->mouse.max_cp;
-	
+	double max_re = (HT / WT * (pgm->mouse.max_cp - pgm->mouse.min_cp) + pgm->mouse.min_re);	
 	//marche mais deforme le zoom.	
 	//double	max_cp = pgm->mouse.min_cp + (pgm->mouse.max_cp - pgm->mouse.min_re) * (1000 / 1000); 
-	
+	pgm->mouse.scale_re = (pgm->mouse.max_re - pgm->mouse.min_re) / HT;
+	pgm->mouse.scale_cp = (pgm->mouse.max_cp - pgm->mouse.min_cp) / WT;	
 	double	c_cp;
 	double	c_re;
 	double	y;

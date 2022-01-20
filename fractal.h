@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/19 11:43:13 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/20 10:12:22 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct	s_mouse
 	double	max_re;
 	double	min_cp;
 	double	max_cp;
+	double	scale_cp;
+	double	scale_re;
 	void	*img;
 	char	*addr;
 }				t_mouse;
@@ -78,6 +80,7 @@ typedef struct	s_ptr
 }				t_ptr;
 
 
+int	ft_black(t_ptr *pgm);
 void	ft_zoom_in(t_ptr	*pgm, double zoom_f);
 int	create_color(int t, int r, int g, int b);
 //int	print_mandelbrot(t_data image, t_ptr *pgm, double	width, double height);

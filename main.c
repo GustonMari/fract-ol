@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/19 13:48:29 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/20 10:14:23 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,49 @@ int	create_color(int t, int r, int g, int b)
 
 int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm)
 {
+	////(void)pgm;
+	//(void)x;
+	//(void)y;
+	////double	temp;
+	//if (mouse == 4)
+	//{
+	//	mlx_mouse_get_pos(pgm->mlx, pgm->win, &pgm->mouse.x, &pgm->mouse.y);
+	//	pgm->mouse.move_x = (double)pgm->mouse.x / (WT / (pgm->mouse.max_re - pgm->mouse.min_re)) + pgm->mouse.min_re;
+	//	pgm->mouse.move_y = (double)pgm->mouse.y / (HT / (pgm->mouse.max_cp - pgm->mouse.min_cp)) + pgm->mouse.min_cp;
+	//	ft_zoom_in(pgm, 3);
+	//	
+	//}
+	//if (mouse == 5)
+	//{	
+	//	if (pgm->mouse.zoom > 1)
+	//	{
+	//		mlx_mouse_get_pos(pgm->mlx, pgm->win, &pgm->mouse.x, &pgm->mouse.y);
+	//		pgm->mouse.zoom -= 0.01;
+	//	}
+	//}
+	//print_mandelbrot(pgm);
+	//return (0);
+	double		zoom;
+
+	if (mouse == 4 || mouse == 5)
+	{
+		pgm->mouse.move_x = pgm->mouse.min_re + x * pgm->mouse.scale_re;
+		pgm->mouse.move_y = pgm->mouse.max_cp - y * pgm->mouse.scale_cp;
+		if (mouse == 4)
+			zoom = 1.2;
+		else
+			zoom = 0.8;
+		pgm->mouse.min_re = pgm->mouse.move_x + (pgm->mouse.min_re - pgm->mouse.move_x) * zoom;
+		pgm->mouse.max_re = pgm->mouse.move_x + (pgm->mouse.max_re - pgm->mouse.move_x) * zoom;
+		pgm->mouse.min_cp = pgm->mouse.move_y + (pgm->mouse.min_cp - pgm->mouse.move_y) * zoom;
+		pgm->mouse.max_cp = pgm->mouse.move_y + (pgm->mouse.max_cp - pgm->mouse.move_y) * zoom;
+		print_mandelbrot(pgm);
+	}
+	return (0);
+}
+/*
+int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm)
+{
 	//(void)pgm;
 	(void)x;
 	(void)y;
@@ -65,8 +108,10 @@ int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm)
 			pgm->mouse.zoom -= 0.01;
 		}
 	}
+	print_mandelbrot(pgm);
 	return (0);
 }
+*/
 
 int	ft_close(t_ptr *pgm)
 {
@@ -90,10 +135,13 @@ void	pgm_image_init(t_ptr *pgm, t_data *image)
 
 	
 	pgm->mouse.min_re = -2.0;
-	pgm->mouse.max_re = 1.0;
 	pgm->mouse.min_cp = -1.2;
-	//pgm->mouse.max_cp = pgm->mouse.min_cp + (pgm->mouse.max_re - pgm->mouse.min_re) * 1000 / 1000; 
 	pgm->mouse.max_cp = 1.2;
+	pgm->mouse.max_re = (HT / WT * (pgm->mouse.max_cp - pgm->mouse.min_cp) + pgm->mouse.min_re);	
+	//pgm->mouse.min_re = -2.0;
+	//pgm->mouse.min_cp = -1.2;
+	//pgm->mouse.max_cp = 1.2;
+	//pgm->mouse.max_re = 1.0;
 	pgm->mouse.x = 0;
 	pgm->mouse.y = 0;
 	pgm->mouse.zoom = 1.0;
@@ -118,9 +166,9 @@ int	main()
 
 	//integrer t r g b a la structure image et avant de faire ca utiliser le hook afin de definir les couleurs
 	//mlx_key_hook(pgm.win, deal_key, &pgm);
-
+	print_mandelbrot(&pgm);
 	mlx_mouse_hook(pgm.win, &mouse_scroll, &pgm);
-	mlx_loop_hook(pgm.mlx, &print_mandelbrot, &pgm);
+	//mlx_loop_hook(pgm.mlx, &print_mandelbrot, &pgm);
 	//mlx_put_image_to_window(pgm.mlx, pgm.win, pgm.image.img, 0, 0);
 								//mlx_put_image_to_window(pgm.mlx, pgm.win, pgm.mouse->img, 0, 0);
 	//integrer la touhe esc pour quitter la fenetre
