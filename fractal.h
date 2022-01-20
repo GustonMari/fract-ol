@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/20 12:16:49 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:12:49 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct	s_ptr
 	//t_data	*imge;
 	t_data	image;
 	t_mouse	mouse;
+	double	k_re;
+	double	k_cp;
 }				t_ptr;
 
 
@@ -89,5 +91,7 @@ int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm);
 int	palette(int i);
 int	print_mandelbrot(t_ptr *pgm);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int	print_julia(t_ptr *pgm);
+int	key_julia(int key, t_ptr *pgm);
 
 #endif

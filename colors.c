@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 11:38:10 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/20 12:18:09 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/20 14:42:23 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	palette(int i)
 	const int tab[15] = { 0xfaf3dd, 0xc8d5b9, 0x8fc0a9, 0x68b0ab, 0x4a7c59,
 	0x454851, 0x73956f, 0x7bae7f, 0x95d7ae, 0xfceff9, 0x313628, 0x73956f,
 	0x595358, 0x22aed1, 0xeeeeff};
-	
+
 	i = i % 15;
 	return (tab[i]);
 }

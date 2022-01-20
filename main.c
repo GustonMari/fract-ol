@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/20 11:42:18 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:12:38 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	pgm_image_init(t_ptr *pgm, t_data *image)
 	pgm->mouse.min_cp = -1.2;
 	pgm->mouse.max_cp = 1.2;
 	pgm->mouse.max_re = (HT / WT * (pgm->mouse.max_cp - pgm->mouse.min_cp) + pgm->mouse.min_re);	
+	pgm->k_cp = 0.596;
+	pgm->k_re = 0.128;
 	pgm->mouse.x = 0;
 	pgm->mouse.y = 0;
 	pgm->mouse.zoom = 1.0;
@@ -67,7 +69,9 @@ int	main()
 	
 	pgm_image_init(&pgm, &pgm.image);
 	//mlx_key_hook(pgm.win, deal_key, &pgm);
-	print_mandelbrot(&pgm);
+	print_julia(&pgm);
+	//print_mandelbrot(&pgm);
+	mlx_key_hook(pgm.win, key_julia, &pgm);
 	mlx_mouse_hook(pgm.win, &mouse_scroll, &pgm);
 	//mlx_loop_hook(pgm.mlx, &print_mandelbrot, &pgm);
 	//integrer la touhe esc pour quitter la fenetre

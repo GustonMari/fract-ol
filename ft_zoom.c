@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 14:26:53 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/20 11:41:03 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/20 15:20:41 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,25 @@ int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm)
 		pgm->mouse.max_re = pgm->mouse.move_x + (pgm->mouse.max_re - pgm->mouse.move_x) * zoom;
 		pgm->mouse.min_cp = pgm->mouse.move_y + (pgm->mouse.min_cp - pgm->mouse.move_y) * zoom;
 		pgm->mouse.max_cp = pgm->mouse.move_y + (pgm->mouse.max_cp - pgm->mouse.move_y) * zoom;
-		print_mandelbrot(pgm);
+		//print_mandelbrot(pgm);
+		print_julia(pgm);
 	}
+	return (0);
+}
+
+int	key_julia(int key, t_ptr *pgm)
+{
+	
+	if (key == 2)
+	{
+		pgm->k_cp += 0.100;
+		pgm->k_re += 0.150;
+	}
+	if (key == 3)
+	{
+		pgm->k_cp += 0.250;
+		pgm->k_re += 0.180;
+	}
+	print_julia(pgm);
 	return (0);
 }
