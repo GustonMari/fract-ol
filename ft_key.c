@@ -6,11 +6,20 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:33:29 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/24 17:56:16 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 18:25:30 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
+
+int	ft_close(t_ptr *pgm)
+{
+	mlx_destroy_image(pgm->mlx, pgm->image.img);
+	mlx_destroy_window(pgm->mlx, pgm->win);
+	mlx_destroy_display(pgm->mlx);
+	free(pgm->mlx);
+	exit(0);
+}
 
 void	key_main(int key, t_ptr *pgm)
 {

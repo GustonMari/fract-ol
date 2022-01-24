@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/24 17:54:51 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 18:06:42 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,42 +36,42 @@ int	check_if_belong(double c_re, double c_cp, int max)
 	return (1);
 }
 
-int	print_mandelbrot(t_ptr *pgm, int n, int col)
+void	ft_mandelbrot(t_ptr *pgm, int n, int col)
 {
-	pgm->mse.max_re = (HT / WT * (pgm->mse.max_cp - pgm->mse.min_cp)
-			+ pgm->mse.min_re);
-	pgm->mse.scale_re = (pgm->mse.max_re - pgm->mse.min_re) / HT;
-	pgm->mse.scale_cp = (pgm->mse.max_cp - pgm->mse.min_cp) / WT;	
 	double	c_cp;
 	double	c_re;
 	double	y;
 	double	x;
-	//int n;
-	//int	col = 0;
-	ft_black(pgm);
-	//n = 2;
+
 	while (n < 35)
 	{
-		y = 0;
-		while (y < WT)
+		y = -1;
+		while (++y < WT)
 		{
 			c_cp = pgm->mse.max_cp
 				- (y *(pgm->mse.max_cp - pgm->mse.min_cp) / (HT)) + pgm->mv_y;
-			x = 0;
-			while (x < HT)
+			x = -1;
+			while (++x < HT)
 			{
 				c_re = (x *(pgm->mse.max_re - pgm->mse.min_re) / (WT))
 					+ pgm->mse.min_re + 0.05 + pgm->mv_x;
-				//c_re = min_re + (x *(max_re - min_re)/(WT)) + 0.05 + pgm->mv_x;
 				if (check_if_belong(c_re, c_cp, 1 + n))
 					my_mlx_pixel_put(&pgm->image, x, y, palette(n + col));
-				x++;
 			}
-			y++;
 		}
 		n++;
 		col += pgm->col;
 	}
 	mlx_put_image_to_window(pgm->mlx, pgm->win, pgm->image.img, 0, 0);
+}
+
+int	print_mandelbrot(t_ptr *pgm, int n, int col)
+{
+	pgm->mse.max_re = (HT / WT * (pgm->mse.max_cp - pgm->mse.min_cp)
+			+ pgm->mse.min_re);
+	pgm->mse.scale_re = (pgm->mse.max_re - pgm->mse.min_re) / HT;
+	pgm->mse.scale_cp = (pgm->mse.max_cp - pgm->mse.min_cp) / WT;
+	ft_black(pgm);
+	ft_mandelbrot(pgm, n, col);
 	return (0);
 }
