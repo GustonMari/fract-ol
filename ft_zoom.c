@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 14:26:53 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/24 14:49:05 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 17:56:30 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	mouse_scroll(int mse, int x, int y, t_ptr *pgm)
 		pgm->mse.max_re = pgm->mse.mvx + (pgm->mse.max_re - pgm->mse.mvx) * z;
 		pgm->mse.min_cp = pgm->mse.mvy + (pgm->mse.min_cp - pgm->mse.mvy) * z;
 		pgm->mse.max_cp = pgm->mse.mvy + (pgm->mse.max_cp - pgm->mse.mvy) * z;
-		print_julia(pgm);
+		print_julia(pgm, 2, 0);
 	}
 	return (0);
 }
@@ -49,7 +49,7 @@ int	mouse_scroll_2(int mse, int x, int y, t_ptr *pgm)
 		pgm->mse.max_re = pgm->mse.mvx + (pgm->mse.max_re - pgm->mse.mvx) * z;
 		pgm->mse.min_cp = pgm->mse.mvy + (pgm->mse.min_cp - pgm->mse.mvy) * z;
 		pgm->mse.max_cp = pgm->mse.mvy + (pgm->mse.max_cp - pgm->mse.mvy) * z;
-		print_mandelbrot(pgm);
+		print_mandelbrot(pgm, 2, 0);
 	}
 	return (0);
 }
@@ -70,7 +70,7 @@ int	mouse_scroll_3(int mse, int x, int y, t_ptr *pgm)
 		pgm->mse.max_re = pgm->mse.mvx + (pgm->mse.max_re - pgm->mse.mvx) * z;
 		pgm->mse.min_cp = pgm->mse.mvy + (pgm->mse.min_cp - pgm->mse.mvy) * z;
 		pgm->mse.max_cp = pgm->mse.mvy + (pgm->mse.max_cp - pgm->mse.mvy) * z;
-		print_gustave(pgm);
+		print_gustave(pgm, 2, 0);
 	}
 	return (0);
 }

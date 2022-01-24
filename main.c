@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/24 15:19:13 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 17:55:02 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 int	ft_close(t_ptr *pgm)
 {
-	//mlx_destroy_image(pgm->mlx, pgm->win);
+	mlx_destroy_image(pgm->mlx, pgm->image.img);
 	mlx_destroy_window(pgm->mlx, pgm->win);
 	mlx_destroy_display(pgm->mlx);
 	free(pgm->mlx);
@@ -43,8 +43,10 @@ void	pgm_image_init(t_ptr *pgm, t_data *image)
 {
 	pgm->mlx = mlx_init();
 	pgm->win = mlx_new_window(pgm->mlx, 1000, 1000, "hello");
-	image->img = mlx_new_image(pgm->mlx, 1000, 1000);
-	image->addr = mlx_get_data_addr(image->img, &image->bpp, &image->line_length, &image->endian);
+	pgm->image.img = mlx_new_image(pgm->mlx, 1000, 1000);
+	pgm->image.addr = mlx_get_data_addr(image->img, &image->bpp, &image->line_length, &image->endian);
+	//image->img = mlx_new_image(pgm->mlx, 1000, 1000);
+	//image->addr = mlx_get_data_addr(image->img, &image->bpp, &image->line_length, &image->endian);
 	pgm->mse.min_re = -2.0;
 	pgm->mse.min_cp = -1.2;
 	pgm->mse.max_cp = 1.2;
@@ -80,25 +82,23 @@ int	main(int ac, char **av)
 	pgm_image_init(&pgm, &pgm.image);
 	if (!ft_strcmp(av[1], "julia"))
 	{
-		print_julia(&pgm);
+		print_julia(&pgm, 2, 0);
 		mlx_key_hook(pgm.win, &key_julia, &pgm);
 		mlx_mouse_hook(pgm.win, &mouse_scroll, &pgm);
 	}
 	if (!ft_strcmp(av[1], "mandelbrot"))
 	{
-		print_mandelbrot(&pgm);
+		print_mandelbrot(&pgm, 2, 0);
 		mlx_key_hook(pgm.win, &key_mandel, &pgm);
 		mlx_mouse_hook(pgm.win, &mouse_scroll_2, &pgm);
 	}
 	if (!ft_strcmp(av[1], "gustave"))
 	{
-		print_gustave(&pgm);
+		print_gustave(&pgm, 2, 0);
 		mlx_key_hook(pgm.win, &key_gus, &pgm);
 		mlx_mouse_hook(pgm.win, &mouse_scroll_3, &pgm);
 	}
-	//integrer la touhe esc pour quitter la fenetre
 	mlx_hook(pgm.win, 17, 02, ft_close, &pgm);
-	mlx_key_hook(pgm.win, &key_esc, &pgm);
 	mlx_loop(pgm.mlx);
 	return (0);
 }
