@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/20 15:19:10 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 11:43:14 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,17 @@ int	print_julia(t_ptr *pgm)
 			while (x < HT)
 			{
 				//c_re = min_re + (x *(max_re - min_re)/(WT * pgm->mouse.zoom));
-				c_re = min_re + (x *(max_re - min_re)/(WT));
+				c_re = min_re + (x *(max_re - min_re)/(WT)) + 0.8;
 				//if (check_if_belong(c_re, c_cp, 1 + n))
 				if (check_if_julia(c_re, c_cp, 1 + n, pgm))
-					my_mlx_pixel_put(&pgm->image, x, y, palette(n));
+					my_mlx_pixel_put(&pgm->image, x, y, palette(n + col));
 					//my_mlx_pixel_put(&pgm->image, x, y, create_color(0,32 + col, col, 20 + col));
 				x++;
 			}
 			y++;
 		}
 		n++;
-		col += 5;
+		col += pgm->col;
 	}
 	mlx_put_image_to_window(pgm->mlx, pgm->win, pgm->image.img, 0, 0);
 	return (0);
@@ -146,14 +146,14 @@ int	print_mandelbrot(t_ptr *pgm)
 				//if (check_if_belong(c_re, c_cp, 1 + n))
 				//if (check_if_julia(c_re, c_cp, 1 + n))
 				if (check_if_belong(c_re, c_cp, 1 + n))
-					my_mlx_pixel_put(&pgm->image, x, y, palette(n));
+					my_mlx_pixel_put(&pgm->image, x, y, palette(n + col));
 					//my_mlx_pixel_put(&pgm->image, x, y, create_color(0,32 + col, col, 20 + col));
 				x++;
 			}
 			y++;
 		}
 		n++;
-		col += 5;
+		col += pgm->col;
 	}
 	mlx_put_image_to_window(pgm->mlx, pgm->win, pgm->image.img, 0, 0);
 	return (0);

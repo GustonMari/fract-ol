@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 14:26:53 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/20 15:20:41 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 11:26:47 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	inter(double start, double end, double zoom)
 
 void	ft_zoom_in(t_ptr	*pgm, double zoom_f)
 {
-	ft_black(pgm);
+	//ft_black(pgm);
 	double	zoom = 1.0 / zoom_f;
 	pgm->mouse.min_re = inter(pgm->mouse.move_x, pgm->mouse.min_re, zoom);
 	pgm->mouse.min_cp = inter(pgm->mouse.move_y, pgm->mouse.min_cp, zoom);
@@ -53,17 +53,24 @@ int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm)
 
 int	key_julia(int key, t_ptr *pgm)
 {
-	
-	if (key == 2)
+	if (key == XK_Up)
 	{
-		pgm->k_cp += 0.100;
-		pgm->k_re += 0.150;
+		//pgm->k_cp += 0.100;
+		//pgm->k_re += 0.105;
+		pgm->k_cp += 0.005;
+		pgm->k_re += 0.010;
 	}
-	if (key == 3)
+	if (key == XK_Down)
 	{
-		pgm->k_cp += 0.250;
-		pgm->k_re += 0.180;
+		//pgm->k_cp += 0.180;
+		//pgm->k_re += 0.140;
+		pgm->k_cp += 0.008;
+		pgm->k_re += 0.013;
 	}
+	if (key == XK_Left)
+		pgm->col += 5;
+	if (key == XK_Right)
+		pgm->col += 10;
 	print_julia(pgm);
 	return (0);
 }

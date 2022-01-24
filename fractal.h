@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/20 15:12:49 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 12:45:34 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "minilibx_linux/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <X11/keysym.h>
 # include <unistd.h>
 # define HT 1000
 # define WT 1000
@@ -55,6 +57,7 @@ typedef struct	s_data
 	int		width;
 	int		height;
 }				t_data;
+
 /*
 typedef struct	s_data 
 {
@@ -79,6 +82,7 @@ typedef struct	s_ptr
 	t_mouse	mouse;
 	double	k_re;
 	double	k_cp;
+	int		col;
 }				t_ptr;
 
 

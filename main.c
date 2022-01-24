@@ -6,11 +6,21 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/20 15:12:38 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 12:56:12 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
 
 int	deal_key(int key, void *param)
 {
@@ -60,19 +70,35 @@ void	pgm_image_init(t_ptr *pgm, t_data *image)
 	pgm->mouse.x = 0;
 	pgm->mouse.y = 0;
 	pgm->mouse.zoom = 1.0;
+	pgm->col = 0;
 }
 
+//pour julia juste utiliser key_hook pas besoin davoir print avant dans le main
 
-int	main()
+
+//int	ft_julia()
+
+int	main(int ac, char **av)
 {
 	t_ptr	pgm;
+	if (ac != 2)
+	{
+		//sortie derreur?
+		write(1, "Error\n", 6);
+		return (0);
+	}
 	
 	pgm_image_init(&pgm, &pgm.image);
 	//mlx_key_hook(pgm.win, deal_key, &pgm);
-	print_julia(&pgm);
+	
+	if (!ft_strcmp(av[1], "julia"))
+	{
+		print_julia(&pgm);
+		mlx_key_hook(pgm.win, &key_julia, &pgm);
+		mlx_mouse_hook(pgm.win, &mouse_scroll, &pgm);
+	}
+	
 	//print_mandelbrot(&pgm);
-	mlx_key_hook(pgm.win, key_julia, &pgm);
-	mlx_mouse_hook(pgm.win, &mouse_scroll, &pgm);
 	//mlx_loop_hook(pgm.mlx, &print_mandelbrot, &pgm);
 	//integrer la touhe esc pour quitter la fenetre
 	mlx_hook(pgm.win, 17, 02, ft_close, &pgm);
@@ -99,35 +125,6 @@ on peu tout mettre au carre et se debarasser de la racine carre on a donc (Zr2+Z
 integrer t r g b a la structure image et avant de faire ca utiliser le hook afin de definir les couleurs
 ----------------------------------------------------------------------------------------------------------------------------------
 ZOOM:
-
-pour convertir la position de la souris sur un autres plan:
-double mouseRe = (double)mouse_x / (WIN_L / (e->Re.max - e->Re.min)) + e->Re.min;
-double mouseIm = (double)mouse_y / (WIN_H / (e->Im.max - e->Im.min)) + e->Im.min;
--------------------------------------------------------------------------------
-OFFSET = 0.0625
-// Ma fractale était affichée dans une section de 800x800 pixels
-// Prenant pour origine le pixel [399,399] comme origine du repère orthogonal
-// La formule suivante est pour le cas où la coordonnée de ton écran sur
-// Laquelle tu zoomes correspondrait à un complexe avec une partie réelle
-// Négative et une partie complexe négative (quart du repère à droite de
-// Des absices et à gauche de celui des ordonnées
-
-// y et x sont les coordonnées de ta souris
-// le zoom est arbitraire et la division par 64 ainsi que l'OFFSET permettent
-// de mitiger l'effet exponentiel du zoom sans que t'ai besoin de scroller
-// des plombes pour progresser
-
-offset_y = (OFFSET / zoom) * ((400 - y) / 64)
-offset_x = (OFFSET / zoom) * ((400 - x) / 64)
-zoom *= 1.1
-----------------------------------------------------------------------
-mlx_do_sync(mlx_ptr)
-mlx_mouse_pos
-mlx_mouse_move
-
-
-
-
 
 */
 
