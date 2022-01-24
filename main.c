@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 09:20:55 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/24 12:56:12 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 14:24:47 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	pgm_image_init(t_ptr *pgm, t_data *image)
 	pgm->mouse.y = 0;
 	pgm->mouse.zoom = 1.0;
 	pgm->col = 0;
+	pgm->mv_x = 0;
+	pgm->mv_y = 0;
 }
 
 //pour julia juste utiliser key_hook pas besoin davoir print avant dans le main
@@ -81,13 +83,9 @@ void	pgm_image_init(t_ptr *pgm, t_data *image)
 int	main(int ac, char **av)
 {
 	t_ptr	pgm;
-	if (ac != 2)
-	{
-		//sortie derreur?
-		write(1, "Error\n", 6);
-		return (0);
-	}
 	
+	if (ac != 2)
+		return (write(1, "Error\n", 6));
 	pgm_image_init(&pgm, &pgm.image);
 	//mlx_key_hook(pgm.win, deal_key, &pgm);
 	
@@ -97,8 +95,18 @@ int	main(int ac, char **av)
 		mlx_key_hook(pgm.win, &key_julia, &pgm);
 		mlx_mouse_hook(pgm.win, &mouse_scroll, &pgm);
 	}
-	
-	//print_mandelbrot(&pgm);
+	if (!ft_strcmp(av[1], "mandelbrot"))
+	{
+		print_mandelbrot(&pgm);
+		mlx_key_hook(pgm.win, &key_mandel, &pgm);
+		mlx_mouse_hook(pgm.win, &mouse_scroll_2, &pgm);
+	}
+	if (!ft_strcmp(av[1], "gustave"))
+	{
+		print_gustave(&pgm);
+		mlx_key_hook(pgm.win, &key_gus, &pgm);
+		mlx_mouse_hook(pgm.win, &mouse_scroll_3, &pgm);
+	}
 	//mlx_loop_hook(pgm.mlx, &print_mandelbrot, &pgm);
 	//integrer la touhe esc pour quitter la fenetre
 	mlx_hook(pgm.win, 17, 02, ft_close, &pgm);

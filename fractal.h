@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/24 12:45:34 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 14:24:18 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,16 @@ typedef struct	s_ptr
 	double	k_re;
 	double	k_cp;
 	int		col;
+	double	mv_x;
+	double	mv_y;
 }				t_ptr;
 
 
+int	mouse_scroll_3(int mouse, int x, int y, t_ptr *pgm);
+int	key_gus(int key, t_ptr *pgm);
+int	print_gustave(t_ptr *pgm);
+int	key_mandel(int key, t_ptr *pgm);
+int	mouse_scroll_2(int mouse, int x, int y, t_ptr *pgm);
 int	ft_black(t_ptr *pgm);
 void	ft_zoom_in(t_ptr	*pgm, double zoom_f);
 int	create_color(int t, int r, int g, int b);
