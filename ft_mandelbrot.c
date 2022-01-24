@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:28:46 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/24 14:25:28 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 14:47:24 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ int	check_if_gustave(double c_re, double c_cp, int max, t_ptr *pgm)
 
 int	print_julia(t_ptr *pgm)
 {
-	double	min_re = pgm->mouse.min_re;
-	double	min_cp = pgm->mouse.min_cp;
-	double	max_cp = pgm->mouse.max_cp;
-	double max_re = (HT / WT * (pgm->mouse.max_cp - pgm->mouse.min_cp) + pgm->mouse.min_re);	
+	double	min_re = pgm->mse.min_re;
+	double	min_cp = pgm->mse.min_cp;
+	double	max_cp = pgm->mse.max_cp;
+	double max_re = (HT / WT * (pgm->mse.max_cp - pgm->mse.min_cp) + pgm->mse.min_re);	
 	//marche mais deforme le zoom.	
-	//double	max_cp = pgm->mouse.min_cp + (pgm->mouse.max_cp - pgm->mouse.min_re) * (1000 / 1000); 
-	pgm->mouse.scale_re = (pgm->mouse.max_re - pgm->mouse.min_re) / HT;
-	pgm->mouse.scale_cp = (pgm->mouse.max_cp - pgm->mouse.min_cp) / WT;	
+	//double	max_cp = pgm->mse.min_cp + (pgm->mse.max_cp - pgm->mse.min_re) * (1000 / 1000); 
+	pgm->mse.scale_re = (pgm->mse.max_re - pgm->mse.min_re) / HT;
+	pgm->mse.scale_cp = (pgm->mse.max_cp - pgm->mse.min_cp) / WT;	
 	double	c_cp;
 	double	c_re;
 	double	y;
@@ -105,21 +105,21 @@ int	print_julia(t_ptr *pgm)
 	int n;
 	int	col = 0;
 	ft_black(pgm);
-	//double	zoom = pgm->mouse.zoom;
-	//double move_y = 0;
-	//double move_x = 0;
+	//double	zoom = pgm->mse.zoom;
+	//double mvy = 0;
+	//double mvx = 0;
 	n = 2;
 	while (n < 35)
 	{
 		y = 0;
 		while (y < WT)
 		{
-			//c_cp = max_cp - (y *(max_cp - min_cp)/(HT * pgm->mouse.zoom));
+			//c_cp = max_cp - (y *(max_cp - min_cp)/(HT * pgm->mse.zoom));
 			c_cp = max_cp - (y *(max_cp - min_cp)/(HT));
 			x = 0;
 			while (x < HT)
 			{
-				//c_re = min_re + (x *(max_re - min_re)/(WT * pgm->mouse.zoom));
+				//c_re = min_re + (x *(max_re - min_re)/(WT * pgm->mse.zoom));
 				c_re = min_re + (x *(max_re - min_re)/(WT)) + 0.8;
 				//if (check_if_belong(c_re, c_cp, 1 + n))
 				if (check_if_julia(c_re, c_cp, 1 + n, pgm))
@@ -138,14 +138,14 @@ int	print_julia(t_ptr *pgm)
 
 int	print_mandelbrot(t_ptr *pgm)
 {
-	double	min_re = pgm->mouse.min_re;
-	double	min_cp = pgm->mouse.min_cp;
-	double	max_cp = pgm->mouse.max_cp;
-	double max_re = (HT / WT * (pgm->mouse.max_cp - pgm->mouse.min_cp) + pgm->mouse.min_re);	
+	double	min_re = pgm->mse.min_re;
+	double	min_cp = pgm->mse.min_cp;
+	double	max_cp = pgm->mse.max_cp;
+	double max_re = (HT / WT * (pgm->mse.max_cp - pgm->mse.min_cp) + pgm->mse.min_re);	
 	//marche mais deforme le zoom.	
-	//double	max_cp = pgm->mouse.min_cp + (pgm->mouse.max_cp - pgm->mouse.min_re) * (1000 / 1000); 
-	pgm->mouse.scale_re = (pgm->mouse.max_re - pgm->mouse.min_re) / HT;
-	pgm->mouse.scale_cp = (pgm->mouse.max_cp - pgm->mouse.min_cp) / WT;	
+	//double	max_cp = pgm->mse.min_cp + (pgm->mse.max_cp - pgm->mse.min_re) * (1000 / 1000); 
+	pgm->mse.scale_re = (pgm->mse.max_re - pgm->mse.min_re) / HT;
+	pgm->mse.scale_cp = (pgm->mse.max_cp - pgm->mse.min_cp) / WT;	
 	double	c_cp;
 	double	c_re;
 	double	y;
@@ -153,21 +153,21 @@ int	print_mandelbrot(t_ptr *pgm)
 	int n;
 	int	col = 0;
 	ft_black(pgm);
-	//double	zoom = pgm->mouse.zoom;
-	//double move_y = 0;
-	//double move_x = 0;
+	//double	zoom = pgm->mse.zoom;
+	//double mvy = 0;
+	//double mvx = 0;
 	n = 2;
 	while (n < 35)
 	{
 		y = 0;
 		while (y < WT)
 		{
-			//c_cp = max_cp - (y *(max_cp - min_cp)/(HT * pgm->mouse.zoom));
+			//c_cp = max_cp - (y *(max_cp - min_cp)/(HT * pgm->mse.zoom));
 			c_cp = max_cp - (y *(max_cp - min_cp)/(HT));
 			x = 0;
 			while (x < HT)
 			{
-				//c_re = min_re + (x *(max_re - min_re)/(WT * pgm->mouse.zoom));
+				//c_re = min_re + (x *(max_re - min_re)/(WT * pgm->mse.zoom));
 				c_re = min_re + (x *(max_re - min_re)/(WT)) + 0.05;
 				//if (check_if_belong(c_re, c_cp, 1 + n))
 				//if (check_if_julia(c_re, c_cp, 1 + n))
@@ -188,14 +188,14 @@ int	print_mandelbrot(t_ptr *pgm)
 
 int	print_gustave(t_ptr *pgm)
 {
-	double	min_re = pgm->mouse.min_re;
-	double	min_cp = pgm->mouse.min_cp;
-	double	max_cp = pgm->mouse.max_cp;
-	double max_re = (HT / WT * (pgm->mouse.max_cp - pgm->mouse.min_cp) + pgm->mouse.min_re);	
+	double	min_re = pgm->mse.min_re;
+	double	min_cp = pgm->mse.min_cp;
+	double	max_cp = pgm->mse.max_cp;
+	double max_re = (HT / WT * (pgm->mse.max_cp - pgm->mse.min_cp) + pgm->mse.min_re);	
 	//marche mais deforme le zoom.	
-	//double	max_cp = pgm->mouse.min_cp + (pgm->mouse.max_cp - pgm->mouse.min_re) * (1000 / 1000); 
-	pgm->mouse.scale_re = (pgm->mouse.max_re - pgm->mouse.min_re) / HT;
-	pgm->mouse.scale_cp = (pgm->mouse.max_cp - pgm->mouse.min_cp) / WT;	
+	//double	max_cp = pgm->mse.min_cp + (pgm->mse.max_cp - pgm->mse.min_re) * (1000 / 1000); 
+	pgm->mse.scale_re = (pgm->mse.max_re - pgm->mse.min_re) / HT;
+	pgm->mse.scale_cp = (pgm->mse.max_cp - pgm->mse.min_cp) / WT;	
 	double	c_cp;
 	double	c_re;
 	double	y;
@@ -203,21 +203,21 @@ int	print_gustave(t_ptr *pgm)
 	int n;
 	int	col = 0;
 	ft_black(pgm);
-	//double	zoom = pgm->mouse.zoom;
-	//double move_y = 0;
-	//double move_x = 0;
+	//double	zoom = pgm->mse.zoom;
+	//double mvy = 0;
+	//double mvx = 0;
 	n = 2;
 	while (n < 35)
 	{
 		y = 0;
 		while (y < WT)
 		{
-			//c_cp = max_cp - (y *(max_cp - min_cp)/(HT * pgm->mouse.zoom));
+			//c_cp = max_cp - (y *(max_cp - min_cp)/(HT * pgm->mse.zoom));
 			c_cp = max_cp - (y *(max_cp - min_cp)/(HT)) + pgm->mv_y;
 			x = 0;
 			while (x < HT)
 			{
-				//c_re = min_re + (x *(max_re - min_re)/(WT * pgm->mouse.zoom));
+				//c_re = min_re + (x *(max_re - min_re)/(WT * pgm->mse.zoom));
 				c_re = min_re + (x *(max_re - min_re)/(WT)) + 0.7 + pgm->mv_x;
 				//if (check_if_belong(c_re, c_cp, 1 + n))
 				//if (check_if_julia(c_re, c_cp, 1 + n))

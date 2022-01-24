@@ -6,7 +6,7 @@
 /*   By: gmary <gmary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 13:21:13 by gmary             #+#    #+#             */
-/*   Updated: 2022/01/24 14:24:18 by gmary            ###   ########.fr       */
+/*   Updated: 2022/01/24 14:47:23 by gmary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct	s_mouse
 	int	x;
 	int	y;
 	double	zoom;
-	double	move_x;
-	double	move_y;
+	double	mvx;
+	double	mvy;
 	double	min_re;
 	double	max_re;
 	double	min_cp;
@@ -79,7 +79,7 @@ typedef struct	s_ptr
 	//t_save	save;
 	//t_data	*imge;
 	t_data	image;
-	t_mouse	mouse;
+	t_mouse	mse;
 	double	k_re;
 	double	k_cp;
 	int		col;
@@ -88,15 +88,15 @@ typedef struct	s_ptr
 }				t_ptr;
 
 
-int	mouse_scroll_3(int mouse, int x, int y, t_ptr *pgm);
+int	mouse_scroll_3(int mse, int x, int y, t_ptr *pgm);
 int	key_gus(int key, t_ptr *pgm);
 int	print_gustave(t_ptr *pgm);
 int	key_mandel(int key, t_ptr *pgm);
-int	mouse_scroll_2(int mouse, int x, int y, t_ptr *pgm);
+int	mouse_scroll_2(int mse, int x, int y, t_ptr *pgm);
 int	ft_black(t_ptr *pgm);
 void	ft_zoom_in(t_ptr	*pgm, double zoom_f);
 int	create_color(int t, int r, int g, int b);
-int	mouse_scroll(int mouse, int x, int y, t_ptr *pgm);
+int	mouse_scroll(int mse, int x, int y, t_ptr *pgm);
 //int	print_mandelbrot(t_data image, t_ptr *pgm, double	width, double height);
 //int	print_mandelbrot(t_data *image, t_ptr *pgm, double	width, double height);
 int	palette(int i);
